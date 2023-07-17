@@ -36,7 +36,8 @@ class StatisticService
 
         foreach ($bookingCount as $booking) {
             if (isset($bookingRejections['hotel'][$booking->hotelId])) {
-                $hotelsRejectionRate[$booking->hotelId] = $bookingRejections['hotel'][$booking->hotelId]/$booking->bookingCount;
+                $rejectionRate = $bookingRejections['hotel'][$booking->hotelId]/$booking->bookingCount * 100;
+                $hotelsRejectionRate[$booking->hotelId] = "{$rejectionRate}%";
             }
         }
 
@@ -49,7 +50,7 @@ class StatisticService
         $customerRejections = $rejections['customer'] ?? [];
 
         arsort($customerRejections);
-        return array_slice($customerRejections, 0, $limit);
+        return array_slice($customerRejections, 0, $limit, true);
     }
 
     private function getRejectionCount(): array
