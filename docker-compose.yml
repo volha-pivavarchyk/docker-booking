@@ -55,7 +55,9 @@ services:
         ports:
             - "33062:3306"
         volumes:
+            - ./docker/mysql-init:/docker-entrypoint-initdb.d:rw
             - ./docker/mysql/:/var/lib/mysql/:rw
+        command: --default-authentication-plugin=mysql_native_password --init-file /docker-entrypoint-initdb.d/mysql-init.sql
         environment:
             MYSQL_ROOT_HOST: $ROOT_HOST
             MYSQL_DATABASE: $DB_NAME
