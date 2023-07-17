@@ -4,15 +4,15 @@ namespace App\Helpers;
 
 class BookingHelper
 {
-    public static function bookHotel(int $hotelId, string $arrivalDate, string $format, int $nights, array $capacity): bool
+    public static function bookHotel(int $hotelId, string $arrivalDate, int $nights, array $capacity): bool
     {
         $dateStart    = strtotime($arrivalDate);
         $dateEnd      = strtotime('+'.$nights.' day', $dateStart);
 
-        $bockedNights = 0;
+        $bookedNights = 0;
         $capacityIds  = [];
 
-        while ($bockedNights < $nights) {
+        while ($bookedNights < $nights) {
             foreach ($capacity as $key => &$item) {
                 $date = strtotime($item['date']);
                 if ($item['hotel_id'] === $hotelId && $date >= $dateStart && $date <= $dateEnd) {
@@ -31,7 +31,7 @@ class BookingHelper
                 }
             }
 
-            $bockedNights++;
+            $bookedNights++;
         }
 
         return false;

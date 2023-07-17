@@ -46,7 +46,7 @@ class StatisticService
 
     public function getUnluckyCustomers(int $limit): array
     {
-        $rejections = $this->getRejectionCount();
+        $rejections         = $this->getRejectionCount();
         $customerRejections = $rejections['customer'] ?? [];
 
         arsort($customerRejections);
@@ -60,7 +60,7 @@ class StatisticService
 
         $rejectionCount = [];
         foreach($bookings as $booking) {
-            $isBooked = BookingHelper::bookHotel($booking->hotel_id, $booking->arrival_date, 'Y-m-d', $booking->nights, $capacity);
+            $isBooked = BookingHelper::bookHotel($booking->hotel_id, $booking->arrival_date, $booking->nights, $capacity);
             if (false === $isBooked) {
                 $rejectionCount['hotel'][$booking->hotel_id]       = isset($rejectionCount['hotel'][$booking->hotel_id]) ? $rejectionCount['hotel'][$booking->hotel_id]++ : 1;
                 $rejectionCount['customer'][$booking->customer_id] = isset($rejectionCount['customer'][$booking->customer_id]) ? $rejectionCount['customer'][$booking->customer_id]++ : 1;
