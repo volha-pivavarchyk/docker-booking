@@ -26,4 +26,4 @@ The application can be available via `http://booking-stat.loc:8080/`
 
 ## Running automated tests
 1. docker exec -it bs-php bash
-2. php bin/phpunit
+2. php artisan test
