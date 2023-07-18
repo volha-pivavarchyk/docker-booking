@@ -63,7 +63,9 @@ services:
             MYSQL_DATABASE: $DB_NAME
             MYSQL_USER: $DB_USER
             MYSQL_PASSWORD: $DB_PASSWORD
-            MYSQL_ALLOW_EMPTY_PASSWORD: $DB_ALLOW_EMPTY_PASSWORD
+            MYSQL_ROOT_USER: $DB_ROOT_USER
+            MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
         restart: always
         networks:
             - u-online
