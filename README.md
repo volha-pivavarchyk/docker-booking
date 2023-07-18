@@ -9,7 +9,8 @@
 4. `docker exec -it bs-php bash` (enter docker php container)  
    All the following commands are executed inside the docker php container:
 * `composer install` (install php dependencies)
-* `php artisan migrate` (run database migrations)
+* `php artisan migrate` (run database migrations) 
+    If you get an error restart docker: `docker-compose down` > `docker-compose up -d` > `docker exec -it bs-php bash`
 * `php artisan db:seed` (run database seeders)
 4. Install node dependencies with `npm`:
 * `npm i` 
