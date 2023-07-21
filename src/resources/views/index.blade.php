@@ -38,6 +38,8 @@
                             <th scope="col">#</th>
                             <th scope="col">Hotel ID</th>
                             <th scope="col">Rejection Rate</th>
+                            <th scope="col">Rejection </th>
+                            <th scope="col">Book </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -45,7 +47,9 @@
                             <tr>
                                 <th scope="row"> {{ $loop->iteration}}</th>
                                 <td>{{ $hotel }}</td>
-                                <td>{{ $rate }}</td>
+                                <td>{{ $rate['rate'] }}</td>
+                                <td>{{ $rate['rejected'] }}</td>
+                                <td>{{ $rate['booking'] }}</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -66,7 +70,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($averageRejectionRate as $customer => $rejection)
+                        @foreach ($unluckyCustomers as $customer => $rejection)
                             <tr>
                                 <th scope="row"> {{ $loop->iteration}}</th>
                                 <td>{{ $customer }}</td>

@@ -36,8 +36,10 @@ class StatisticService
 
         foreach ($bookingCount as $booking) {
             if (isset($bookingRejections['hotel'][$booking->hotelId])) {
-                $rejectionRate = $bookingRejections['hotel'][$booking->hotelId]/$booking->bookingCount * 100;
-                $hotelsRejectionRate[$booking->hotelId] = "{$rejectionRate}%";
+                $rejectionRate                                      = round($bookingRejections['hotel'][$booking->hotelId]/$booking->bookingCount, 2) * 100;
+                $hotelsRejectionRate[$booking->hotelId]['rate']     = "{$rejectionRate}%";
+                $hotelsRejectionRate[$booking->hotelId]['rejected'] = $bookingRejections['hotel'][$booking->hotelId];
+                $hotelsRejectionRate[$booking->hotelId]['booking']  = $booking->bookingCount;
             }
         }
 
@@ -58,12 +60,14 @@ class StatisticService
         $bookings = $this->bookingRepository->getAllBookings();
         $capacity = $this->capacityRepository->getAllCapacities()->toArray();
 
+
         $rejectionCount = [];
         foreach($bookings as $booking) {
             $isBooked = BookingHelper::bookHotel($booking->hotel_id, $booking->arrival_date, $booking->nights, $capacity);
+
             if (false === $isBooked) {
-                $rejectionCount['hotel'][$booking->hotel_id]       = isset($rejectionCount['hotel'][$booking->hotel_id]) ? $rejectionCount['hotel'][$booking->hotel_id]++ : 1;
-                $rejectionCount['customer'][$booking->customer_id] = isset($rejectionCount['customer'][$booking->customer_id]) ? $rejectionCount['customer'][$booking->customer_id]++ : 1;
+                $rejectionCount['hotel'][$booking->hotel_id]       = isset($rejectionCount['hotel'][$booking->hotel_id]) ? $rejectionCount['hotel'][$booking->hotel_id] + 1 : 1;
+                $rejectionCount['customer'][$booking->customer_id] = isset($rejectionCount['customer'][$booking->customer_id]) ? $rejectionCount['customer'][$booking->customer_id] + 1 : 1;
             }
         }
 
